@@ -1,0 +1,10 @@
+{
+  "user": "sa",
+  "password": "C0n4rl*cc",
+  "server": "10.11.105.81",
+  "database": "biometer",
+  "options": {
+    "encrypt": false,
+    "trustServerCertificate": true
+  }
+}
