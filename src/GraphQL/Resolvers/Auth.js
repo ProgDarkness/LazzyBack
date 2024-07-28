@@ -19,20 +19,13 @@ export default {
         const hashClave = CryptoJS.SHA256(claveDesencriptada).toString()
 
         const login = await db1.oneOrNone(
-          `SELECT co_usuario, ced_usuario, nb_usuario, ap_usuario, co_rol, tx_correo, created_at, updated_at
-          FROM public.d008t_usuarios WHERE ced_usuario = $1 AND nu_clave = $2;`,
+          `SELECT co_usuario, usuario, nu_clave, tx_correo, co_rol, created_at
+          FROM public.d008t_usuarios WHERE usuario = $1 AND nu_clave = $2;`,
           [numCedula, hashClave]
         )
 
         if (login) {
-          const {
-            co_usuario,
-            co_rol,
-            ced_usuario,
-            nb_usuario,
-            ap_usuario,
-            tx_correo
-          } = login
+          const { co_usuario, usuario, nu_clave, tx_correo, co_rol } = login
 
           const rutaPrincipal = await db1.manyOrNone(
             `SELECT id_permiso, co_rol, id_ruta, tx_permisos
@@ -51,11 +44,10 @@ export default {
           login.token = jwt.sign(
             {
               co_usuario,
-              co_rol,
-              ced_usuario,
-              nb_usuario,
-              ap_usuario,
-              tx_correo
+              usuario,
+              nu_clave,
+              tx_correo,
+              co_rol
             },
             SECRET_KEY,
             { expiresIn: 60 * 40 }
@@ -93,23 +85,15 @@ export default {
       if (!auth) throw new ApolloError('Sesión no válida')
 
       const { SECRET_KEY } = process.env
-      const {
-        ced_usuario,
-        nb_usuario,
-        ap_usuario,
-        co_usuario,
-        co_rol,
-        tx_correo
-      } = auth
+      const { co_usuario, usuario, nu_clave, tx_correo, co_rol } = auth
 
       auth.token = jwt.sign(
         {
-          ced_usuario,
-          nb_usuario,
-          ap_usuario,
           co_usuario,
-          co_rol,
-          tx_correo
+          usuario,
+          nu_clave,
+          tx_correo,
+          co_rol
         },
         SECRET_KEY,
         { expiresIn: 60 * 100000 }
@@ -169,32 +153,6 @@ export default {
     }
   },
   Mutation: {
-    newUser: async (_, { cedula }) => {
-      try {
-        const statusRegister = await db1.oneOrNone(
-          `SELECT status_register
-          FROM public.d008t_usuarios WHERE ced_usuario = $1`,
-          [cedula]
-        )
-
-        if (statusRegister?.status_register) {
-          return {
-            status: 200,
-            message: 'Usted debe culminar su registro en el Sistema',
-            type: 'success',
-            response: statusRegister.status_register
-          }
-        } else {
-          return {
-            status: 201,
-            message: 'Acceso permitido. Cargando Datos...',
-            type: 'success'
-          }
-        }
-      } catch (e) {
-        throw new ApolloError(e.message)
-      }
-    },
     inserNewUser: async (_, { usuario, correo, clave }) => {
       try {
         const { SECRET_KEY } = process.env
@@ -207,8 +165,8 @@ export default {
         if (hashClave !== null) {
           await db1.none(
             `INSERT INTO public.d008t_usuarios
-            (usuario, nu_clave, tx_correo)
-            VALUES($1, $3, $2);`,
+            (usuario, nu_clave, tx_correo, co_rol)
+            VALUES($1, $3, $2, 1);`,
             [usuario, correo, hashClave]
           )
 

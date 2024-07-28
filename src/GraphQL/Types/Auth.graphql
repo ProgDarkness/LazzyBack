@@ -41,16 +41,7 @@ type menuItem {
   command: String
 }
 
-type ResultNewUser {
-  status: Int
-  message: String
-  type: String
-  response: Boolean
-}
-
 type Mutation {
-  renovarToken: String!
-  newUser(cedula: Int!): ResultNewUser!
   inserNewUser(usuario: String!, correo: String!, clave: String!): Result!
 }
 
