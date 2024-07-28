@@ -1,18 +1,20 @@
 type Query {
-  getUsuarios(cedula: String!): [Usuarios]
+  getUsuarios: [Usuarios]
   getRoles: [roles]
   getRol(codeRol: Int!): [roles]
   getRutas: [rutas]
 }
 
 type Mutation {
-  """ getCrearUsuario(cedula: Int!, nacionalidad: String!): CrearUsuario """
+  """
+  getCrearUsuario(cedula: Int!, nacionalidad: String!): CrearUsuario
+  """
   crearUsuario(InputGuardarUsuario: InputGuardarUsuario!): Result!
   crearRolPermiso(
     InputRolPermisos: InputRolPermisos!
     plusPermisos: Boolean!
   ): ResultCR!
-  eliminarUsuario(cedulaUsuario: Int!): Result!
+  eliminarUsuario(co_usuario: Int!): Result!
   eliminarRol(codRol: Int!): Result!
   actualizarPermisosRol(codPermiso: Int!, arrayPermisos: [Boolean]): Result!
   eliminarPermisosRol(codPermiso: Int!, co_rol: Int!): Result!
@@ -37,14 +39,15 @@ type Result {
   type: String
 }
 
-""" type CrearUsuario {
+"""
+ type CrearUsuario {
   nombre1: String
   nombre2: String
   apellido1: String
   apellido2: String
   codigo_empleado: Int
-} """
-
+}
+"""
 type roles {
   code: Int
   name: String
@@ -72,10 +75,7 @@ input InputRolPermisos {
 
 type Usuarios {
   co_usuario: Int!
-  ced_usuario: ID
-  nb_usuario: String
-  ap_usuario: String
+  usuario: String
   nb_rol: String
   tx_correo: String
-  status_register: Boolean
 }

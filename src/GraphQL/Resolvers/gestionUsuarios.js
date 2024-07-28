@@ -3,6 +3,19 @@ import { ApolloError } from 'apollo-server-core'
 
 export default {
   Query: {
+    getUsuarios: async (_, __, { auth }) => {
+      if (!auth) throw new ApolloError('Sesión no válida')
+
+      try {
+        const usuarios =
+          await db1.manyOrNone(`SELECT u.co_usuario, u.usuario, r.nb_rol, u.tx_correo
+            FROM public.d008t_usuarios u, public.i005t_roles r WHERE u.co_rol =  r.co_rol;`)
+
+        return usuarios
+      } catch (e) {
+        throw new ApolloError(e.message)
+      }
+    },
     getRoles: async (_, __, { auth }) => {
       if (!auth) throw new ApolloError('Sesión no válida')
 
@@ -225,69 +238,20 @@ export default {
         throw new ApolloError(e.message)
       }
     },
-    eliminarUsuario: async (_, { cedulaUsuario }, { auth }) => {
+    eliminarUsuario: async (_, { co_usuario }, { auth }) => {
       if (!auth) throw new ApolloError('Sesión no válida')
 
       try {
         const usuarioError = await db1.oneOrNone(
-          `SELECT co_usuario FROM public.d008t_usuarios WHERE ced_usuario = $1`,
-          [cedulaUsuario]
+          `SELECT co_usuario FROM public.d008t_usuarios WHERE co_usuario = $1`,
+          [co_usuario]
         )
-
-        const co_personal = await db1.oneOrNone(
-          `SELECT co_personal FROM public.d009t_personal WHERE co_usuario = $1;`,
-          [usuarioError.co_usuario]
-        )
-
         if (usuarioError !== null) {
-          if (co_personal?.co_personal) {
-            const coPersonal = co_personal.co_personal
-
-            const horario_personal = await db1.oneOrNone(
-              `SELECT co_horario_personal FROM public.d011t_horarios_personal WHERE co_personal = $1;`,
-              [coPersonal]
-            )
-
-            const especialidad_personal = await db1.oneOrNone(
-              `SELECT co_especialidad_personal FROM public.d010t_especialidad_personal WHERE co_personal = $1;`,
-              [coPersonal]
-            )
-
-            if (horario_personal) {
-              await db1.none(
-                `DELETE FROM public.d011t_horarios_personal
-                WHERE co_personal=$1;
-                `,
-                [coPersonal]
-              )
-            }
-
-            if (especialidad_personal) {
-              await db1.none(
-                `DELETE FROM public.d010t_especialidad_personal
-                WHERE co_personal=$1;
-                `,
-                [coPersonal]
-              )
-            }
-
-            if (co_personal) {
-              await db1.none(
-                `DELETE FROM public.d009t_personal
-                WHERE co_personal=$1;
-                `,
-                [coPersonal]
-              )
-            }
-          }
-
           await db1.none(
             `DELETE FROM public.d008t_usuarios
-            WHERE ced_usuario=$1
-            `,
-            [cedulaUsuario]
+            WHERE co_usuario=$1`,
+            [co_usuario]
           )
-
           return {
             status: 200,
             message: 'El usuario fue eliminado exitosamente',
