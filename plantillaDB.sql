@@ -2,10 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2
--- Dumped by pg_dump version 16.2
+-- Dumped from database version 16.0
+-- Dumped by pg_dump version 16.0
 
--- Started on 2024-05-10 03:20:12
+-- Started on 2024-07-27 20:46:48
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,13 +23,48 @@ SET row_security = off;
 -- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
 --
 
--- *not* creating schema, since initdb creates it
+CREATE SCHEMA public;
 
 
 ALTER SCHEMA public OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 16909)
+-- TOC entry 4967 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 237 (class 1259 OID 168561)
+-- Name: d008t_usuarios; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.d008t_usuarios (
+    co_usuario integer NOT NULL,
+    usuario character varying(60) NOT NULL,
+    nu_clave character varying(100) NOT NULL,
+    nb_usuario character varying(30),
+    ap_usuario character varying(30),
+    nb2_usuario character varying(30),
+    ap2_usuario character varying(30),
+    co_rol integer,
+    tx_correo character varying(50) NOT NULL,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.d008t_usuarios OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 168560)
 -- Name: d008t_usuarios_co_usuario_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -44,35 +79,17 @@ CREATE SEQUENCE public.d008t_usuarios_co_usuario_seq
 
 ALTER SEQUENCE public.d008t_usuarios_co_usuario_seq OWNER TO postgres;
 
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
 --
--- TOC entry 216 (class 1259 OID 16910)
--- Name: d008t_usuarios; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 4969 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: d008t_usuarios_co_usuario_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.d008t_usuarios (
-    co_usuario integer DEFAULT nextval('public.d008t_usuarios_co_usuario_seq'::regclass) NOT NULL,
-    ced_usuario integer NOT NULL,
-    nu_clave character varying(100),
-    nb_usuario character varying(30) NOT NULL,
-    ap_usuario character varying(30) NOT NULL,
-    co_rol integer,
-    tx_correo character varying(50),
-    created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone,
-    status_register boolean DEFAULT true NOT NULL,
-    ap2_usuario character varying(30),
-    nb2_usuario character varying(30)
-);
+ALTER SEQUENCE public.d008t_usuarios_co_usuario_seq OWNED BY public.d008t_usuarios.co_usuario;
 
-
-ALTER TABLE public.d008t_usuarios OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 16916)
+-- TOC entry 215 (class 1259 OID 168368)
 -- Name: d009t_personal_co_personal_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -88,7 +105,7 @@ CREATE SEQUENCE public.d009t_personal_co_personal_seq
 ALTER SEQUENCE public.d009t_personal_co_personal_seq OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 16917)
+-- TOC entry 216 (class 1259 OID 168369)
 -- Name: d009t_personal; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -108,7 +125,7 @@ CREATE TABLE public.d009t_personal (
 ALTER TABLE public.d009t_personal OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 16921)
+-- TOC entry 217 (class 1259 OID 168373)
 -- Name: d010t_especialidad_personal_co_especialidad_personal_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -124,7 +141,7 @@ CREATE SEQUENCE public.d010t_especialidad_personal_co_especialidad_personal_seq
 ALTER SEQUENCE public.d010t_especialidad_personal_co_especialidad_personal_seq OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 16922)
+-- TOC entry 218 (class 1259 OID 168374)
 -- Name: d010t_especialidad_personal; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -140,7 +157,7 @@ CREATE TABLE public.d010t_especialidad_personal (
 ALTER TABLE public.d010t_especialidad_personal OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 16926)
+-- TOC entry 219 (class 1259 OID 168378)
 -- Name: d011t_horarios_personal_co_horario_personal_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -156,7 +173,7 @@ CREATE SEQUENCE public.d011t_horarios_personal_co_horario_personal_seq
 ALTER SEQUENCE public.d011t_horarios_personal_co_horario_personal_seq OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 16927)
+-- TOC entry 220 (class 1259 OID 168379)
 -- Name: d011t_horarios_personal; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -174,7 +191,7 @@ CREATE TABLE public.d011t_horarios_personal (
 ALTER TABLE public.d011t_horarios_personal OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 16934)
+-- TOC entry 221 (class 1259 OID 168383)
 -- Name: d013t_permisos_id_permiso_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -189,7 +206,7 @@ CREATE SEQUENCE public.d013t_permisos_id_permiso_seq
 ALTER SEQUENCE public.d013t_permisos_id_permiso_seq OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 16935)
+-- TOC entry 222 (class 1259 OID 168384)
 -- Name: d013t_permisos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -204,7 +221,7 @@ CREATE TABLE public.d013t_permisos (
 ALTER TABLE public.d013t_permisos OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 16962)
+-- TOC entry 223 (class 1259 OID 168390)
 -- Name: e001m_especialidades_co_especialidad_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -220,7 +237,7 @@ CREATE SEQUENCE public.e001m_especialidades_co_especialidad_seq
 ALTER SEQUENCE public.e001m_especialidades_co_especialidad_seq OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 16990)
+-- TOC entry 224 (class 1259 OID 168391)
 -- Name: i0013t_tipo_personal; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -235,7 +252,7 @@ CREATE TABLE public.i0013t_tipo_personal (
 ALTER TABLE public.i0013t_tipo_personal OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 16995)
+-- TOC entry 225 (class 1259 OID 168396)
 -- Name: i0013t_tipo_personal_co_tipo_personal_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -251,8 +268,8 @@ CREATE SEQUENCE public.i0013t_tipo_personal_co_tipo_personal_seq
 ALTER SEQUENCE public.i0013t_tipo_personal_co_tipo_personal_seq OWNER TO postgres;
 
 --
--- TOC entry 4916 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 4970 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: i0013t_tipo_personal_co_tipo_personal_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -260,7 +277,7 @@ ALTER SEQUENCE public.i0013t_tipo_personal_co_tipo_personal_seq OWNED BY public.
 
 
 --
--- TOC entry 226 (class 1259 OID 16968)
+-- TOC entry 226 (class 1259 OID 168397)
 -- Name: i001t_especialidades; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -275,7 +292,7 @@ CREATE TABLE public.i001t_especialidades (
 ALTER TABLE public.i001t_especialidades OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 16999)
+-- TOC entry 227 (class 1259 OID 168403)
 -- Name: r004m_roles_co_rol_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -291,7 +308,7 @@ CREATE SEQUENCE public.r004m_roles_co_rol_seq
 ALTER SEQUENCE public.r004m_roles_co_rol_seq OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 17000)
+-- TOC entry 228 (class 1259 OID 168404)
 -- Name: i005t_roles; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -306,7 +323,7 @@ CREATE TABLE public.i005t_roles (
 ALTER TABLE public.i005t_roles OWNER TO postgres;
 
 --
--- TOC entry 231 (class 1259 OID 17009)
+-- TOC entry 229 (class 1259 OID 168408)
 -- Name: i008t_parentescos; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -319,7 +336,7 @@ CREATE TABLE public.i008t_parentescos (
 ALTER TABLE public.i008t_parentescos OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 17012)
+-- TOC entry 230 (class 1259 OID 168411)
 -- Name: i009t_rutas; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -333,7 +350,7 @@ CREATE TABLE public.i009t_rutas (
 ALTER TABLE public.i009t_rutas OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 17017)
+-- TOC entry 231 (class 1259 OID 168416)
 -- Name: i009t_rutas_id_ruta_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -349,8 +366,8 @@ CREATE SEQUENCE public.i009t_rutas_id_ruta_seq
 ALTER SEQUENCE public.i009t_rutas_id_ruta_seq OWNER TO postgres;
 
 --
--- TOC entry 4917 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 4971 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: i009t_rutas_id_ruta_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -358,7 +375,7 @@ ALTER SEQUENCE public.i009t_rutas_id_ruta_seq OWNED BY public.i009t_rutas.id_rut
 
 
 --
--- TOC entry 234 (class 1259 OID 17018)
+-- TOC entry 232 (class 1259 OID 168417)
 -- Name: i010t_menus_id_menu_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -374,7 +391,7 @@ CREATE SEQUENCE public.i010t_menus_id_menu_seq
 ALTER SEQUENCE public.i010t_menus_id_menu_seq OWNER TO postgres;
 
 --
--- TOC entry 235 (class 1259 OID 17019)
+-- TOC entry 233 (class 1259 OID 168418)
 -- Name: i010t_menus; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -388,7 +405,7 @@ CREATE TABLE public.i010t_menus (
 ALTER TABLE public.i010t_menus OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 17025)
+-- TOC entry 234 (class 1259 OID 168424)
 -- Name: i011t_items_menu; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -402,7 +419,7 @@ CREATE TABLE public.i011t_items_menu (
 ALTER TABLE public.i011t_items_menu OWNER TO postgres;
 
 --
--- TOC entry 237 (class 1259 OID 17030)
+-- TOC entry 235 (class 1259 OID 168429)
 -- Name: i011t_items_menu_id_item_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -418,8 +435,8 @@ CREATE SEQUENCE public.i011t_items_menu_id_item_seq
 ALTER SEQUENCE public.i011t_items_menu_id_item_seq OWNER TO postgres;
 
 --
--- TOC entry 4918 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 4972 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: i011t_items_menu_id_item_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -427,7 +444,15 @@ ALTER SEQUENCE public.i011t_items_menu_id_item_seq OWNED BY public.i011t_items_m
 
 
 --
--- TOC entry 4698 (class 2604 OID 17051)
+-- TOC entry 4754 (class 2604 OID 168564)
+-- Name: d008t_usuarios co_usuario; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.d008t_usuarios ALTER COLUMN co_usuario SET DEFAULT nextval('public.d008t_usuarios_co_usuario_seq'::regclass);
+
+
+--
+-- TOC entry 4746 (class 2604 OID 168430)
 -- Name: i0013t_tipo_personal co_tipo_personal; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -435,7 +460,7 @@ ALTER TABLE ONLY public.i0013t_tipo_personal ALTER COLUMN co_tipo_personal SET D
 
 
 --
--- TOC entry 4700 (class 2604 OID 17056)
+-- TOC entry 4751 (class 2604 OID 168431)
 -- Name: i009t_rutas id_ruta; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -443,7 +468,7 @@ ALTER TABLE ONLY public.i009t_rutas ALTER COLUMN id_ruta SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 4702 (class 2604 OID 17057)
+-- TOC entry 4753 (class 2604 OID 168432)
 -- Name: i011t_items_menu id_item; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -451,20 +476,18 @@ ALTER TABLE ONLY public.i011t_items_menu ALTER COLUMN id_item SET DEFAULT nextva
 
 
 --
--- TOC entry 4888 (class 0 OID 16910)
--- Dependencies: 216
+-- TOC entry 4961 (class 0 OID 168561)
+-- Dependencies: 237
 -- Data for Name: d008t_usuarios; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.d008t_usuarios (co_usuario, ced_usuario, nu_clave, nb_usuario, ap_usuario, co_rol, tx_correo, created_at, updated_at, status_register, ap2_usuario, nb2_usuario) FROM stdin;
-1	28484689	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	GABRIEL	MARCANO	1	gabrielmarcano141@cne.gob.ve	2023-01-25 14:23:32.362521	\N	f	REQUENA	FABIAN
-2	12073739	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	ANGEL	ROJAS	1	\N	2023-09-25 09:03:34.170919	\N	t	HERNANDEZ	IVAN
+COPY public.d008t_usuarios (co_usuario, usuario, nu_clave, nb_usuario, ap_usuario, nb2_usuario, ap2_usuario, co_rol, tx_correo, created_at, updated_at) FROM stdin;
 \.
 
 
 --
--- TOC entry 4890 (class 0 OID 16917)
--- Dependencies: 218
+-- TOC entry 4940 (class 0 OID 168369)
+-- Dependencies: 216
 -- Data for Name: d009t_personal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -475,8 +498,8 @@ COPY public.d009t_personal (co_personal, co_empleado, co_colegio_medicos, co_min
 
 
 --
--- TOC entry 4892 (class 0 OID 16922)
--- Dependencies: 220
+-- TOC entry 4942 (class 0 OID 168374)
+-- Dependencies: 218
 -- Data for Name: d010t_especialidad_personal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -487,8 +510,8 @@ COPY public.d010t_especialidad_personal (co_especialidad_personal, co_especialid
 
 
 --
--- TOC entry 4894 (class 0 OID 16927)
--- Dependencies: 222
+-- TOC entry 4944 (class 0 OID 168379)
+-- Dependencies: 220
 -- Data for Name: d011t_horarios_personal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -499,8 +522,8 @@ COPY public.d011t_horarios_personal (co_horario_personal, co_turno, co_personal,
 
 
 --
--- TOC entry 4896 (class 0 OID 16935)
--- Dependencies: 224
+-- TOC entry 4946 (class 0 OID 168384)
+-- Dependencies: 222
 -- Data for Name: d013t_permisos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -517,8 +540,8 @@ COPY public.d013t_permisos (id_permiso, co_rol, id_ruta, tx_permisos) FROM stdin
 
 
 --
--- TOC entry 4899 (class 0 OID 16990)
--- Dependencies: 227
+-- TOC entry 4948 (class 0 OID 168391)
+-- Dependencies: 224
 -- Data for Name: i0013t_tipo_personal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -529,7 +552,7 @@ COPY public.i0013t_tipo_personal (co_tipo_personal, nb_tipo_personal, created_at
 
 
 --
--- TOC entry 4898 (class 0 OID 16968)
+-- TOC entry 4950 (class 0 OID 168397)
 -- Dependencies: 226
 -- Data for Name: i001t_especialidades; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -541,8 +564,8 @@ COPY public.i001t_especialidades (co_especialidad, nb_especialidad, created_at, 
 
 
 --
--- TOC entry 4902 (class 0 OID 17000)
--- Dependencies: 230
+-- TOC entry 4952 (class 0 OID 168404)
+-- Dependencies: 228
 -- Data for Name: i005t_roles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -552,8 +575,8 @@ COPY public.i005t_roles (co_rol, nb_rol, created_at, updated_at) FROM stdin;
 
 
 --
--- TOC entry 4903 (class 0 OID 17009)
--- Dependencies: 231
+-- TOC entry 4953 (class 0 OID 168408)
+-- Dependencies: 229
 -- Data for Name: i008t_parentescos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -568,8 +591,8 @@ COPY public.i008t_parentescos (co_parentesco, nb_parentesco) FROM stdin;
 
 
 --
--- TOC entry 4904 (class 0 OID 17012)
--- Dependencies: 232
+-- TOC entry 4954 (class 0 OID 168411)
+-- Dependencies: 230
 -- Data for Name: i009t_rutas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -586,8 +609,8 @@ COPY public.i009t_rutas (id_ruta, nb_ruta, tx_tag_name) FROM stdin;
 
 
 --
--- TOC entry 4907 (class 0 OID 17019)
--- Dependencies: 235
+-- TOC entry 4957 (class 0 OID 168418)
+-- Dependencies: 233
 -- Data for Name: i010t_menus; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -597,8 +620,8 @@ COPY public.i010t_menus (id_menu, co_rol, tx_menu) FROM stdin;
 
 
 --
--- TOC entry 4908 (class 0 OID 17025)
--- Dependencies: 236
+-- TOC entry 4958 (class 0 OID 168424)
+-- Dependencies: 234
 -- Data for Name: i011t_items_menu; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -615,17 +638,17 @@ COPY public.i011t_items_menu (id_item, id_ruta, json_item) FROM stdin;
 
 
 --
--- TOC entry 4919 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 4973 (class 0 OID 0)
+-- Dependencies: 236
 -- Name: d008t_usuarios_co_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.d008t_usuarios_co_usuario_seq', 2, true);
+SELECT pg_catalog.setval('public.d008t_usuarios_co_usuario_seq', 1, false);
 
 
 --
--- TOC entry 4920 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 4974 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: d009t_personal_co_personal_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -633,8 +656,8 @@ SELECT pg_catalog.setval('public.d009t_personal_co_personal_seq', 3, true);
 
 
 --
--- TOC entry 4921 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 4975 (class 0 OID 0)
+-- Dependencies: 217
 -- Name: d010t_especialidad_personal_co_especialidad_personal_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -642,8 +665,8 @@ SELECT pg_catalog.setval('public.d010t_especialidad_personal_co_especialidad_per
 
 
 --
--- TOC entry 4922 (class 0 OID 0)
--- Dependencies: 221
+-- TOC entry 4976 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: d011t_horarios_personal_co_horario_personal_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -651,8 +674,8 @@ SELECT pg_catalog.setval('public.d011t_horarios_personal_co_horario_personal_seq
 
 
 --
--- TOC entry 4923 (class 0 OID 0)
--- Dependencies: 223
+-- TOC entry 4977 (class 0 OID 0)
+-- Dependencies: 221
 -- Name: d013t_permisos_id_permiso_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -660,8 +683,8 @@ SELECT pg_catalog.setval('public.d013t_permisos_id_permiso_seq', 13, true);
 
 
 --
--- TOC entry 4924 (class 0 OID 0)
--- Dependencies: 225
+-- TOC entry 4978 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: e001m_especialidades_co_especialidad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -669,8 +692,8 @@ SELECT pg_catalog.setval('public.e001m_especialidades_co_especialidad_seq', 3, t
 
 
 --
--- TOC entry 4925 (class 0 OID 0)
--- Dependencies: 228
+-- TOC entry 4979 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: i0013t_tipo_personal_co_tipo_personal_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -678,8 +701,8 @@ SELECT pg_catalog.setval('public.i0013t_tipo_personal_co_tipo_personal_seq', 2, 
 
 
 --
--- TOC entry 4926 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 4980 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: i009t_rutas_id_ruta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -687,8 +710,8 @@ SELECT pg_catalog.setval('public.i009t_rutas_id_ruta_seq', 8, true);
 
 
 --
--- TOC entry 4927 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 4981 (class 0 OID 0)
+-- Dependencies: 232
 -- Name: i010t_menus_id_menu_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -696,8 +719,8 @@ SELECT pg_catalog.setval('public.i010t_menus_id_menu_seq', 5, true);
 
 
 --
--- TOC entry 4928 (class 0 OID 0)
--- Dependencies: 237
+-- TOC entry 4982 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: i011t_items_menu_id_item_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -705,8 +728,8 @@ SELECT pg_catalog.setval('public.i011t_items_menu_id_item_seq', 8, true);
 
 
 --
--- TOC entry 4929 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 4983 (class 0 OID 0)
+-- Dependencies: 227
 -- Name: r004m_roles_co_rol_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -714,7 +737,7 @@ SELECT pg_catalog.setval('public.r004m_roles_co_rol_seq', 5, true);
 
 
 --
--- TOC entry 4704 (class 2606 OID 17066)
+-- TOC entry 4787 (class 2606 OID 168567)
 -- Name: d008t_usuarios d008t_usuarios_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -723,7 +746,7 @@ ALTER TABLE ONLY public.d008t_usuarios
 
 
 --
--- TOC entry 4706 (class 2606 OID 17068)
+-- TOC entry 4757 (class 2606 OID 168436)
 -- Name: d009t_personal d009t_personal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -732,7 +755,7 @@ ALTER TABLE ONLY public.d009t_personal
 
 
 --
--- TOC entry 4716 (class 2606 OID 17070)
+-- TOC entry 4767 (class 2606 OID 168438)
 -- Name: d010t_especialidad_personal d010t_especialidad_personal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -741,7 +764,7 @@ ALTER TABLE ONLY public.d010t_especialidad_personal
 
 
 --
--- TOC entry 4720 (class 2606 OID 17072)
+-- TOC entry 4771 (class 2606 OID 168440)
 -- Name: d011t_horarios_personal d011t_horarios_personal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -750,7 +773,7 @@ ALTER TABLE ONLY public.d011t_horarios_personal
 
 
 --
--- TOC entry 4722 (class 2606 OID 17074)
+-- TOC entry 4773 (class 2606 OID 168442)
 -- Name: d013t_permisos d013t_permisos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -759,7 +782,7 @@ ALTER TABLE ONLY public.d013t_permisos
 
 
 --
--- TOC entry 4724 (class 2606 OID 17082)
+-- TOC entry 4777 (class 2606 OID 168444)
 -- Name: i001t_especialidades e001m_especialidades_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -768,7 +791,7 @@ ALTER TABLE ONLY public.i001t_especialidades
 
 
 --
--- TOC entry 4726 (class 2606 OID 17086)
+-- TOC entry 4775 (class 2606 OID 168446)
 -- Name: i0013t_tipo_personal i0013t_tipo_personal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -777,7 +800,7 @@ ALTER TABLE ONLY public.i0013t_tipo_personal
 
 
 --
--- TOC entry 4730 (class 2606 OID 17088)
+-- TOC entry 4781 (class 2606 OID 168448)
 -- Name: i009t_rutas i009t_rutas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -786,7 +809,7 @@ ALTER TABLE ONLY public.i009t_rutas
 
 
 --
--- TOC entry 4732 (class 2606 OID 17090)
+-- TOC entry 4783 (class 2606 OID 168450)
 -- Name: i010t_menus i010t_menus_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -795,7 +818,7 @@ ALTER TABLE ONLY public.i010t_menus
 
 
 --
--- TOC entry 4734 (class 2606 OID 17092)
+-- TOC entry 4785 (class 2606 OID 168452)
 -- Name: i011t_items_menu i011t_items_menu_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -804,7 +827,7 @@ ALTER TABLE ONLY public.i011t_items_menu
 
 
 --
--- TOC entry 4728 (class 2606 OID 17102)
+-- TOC entry 4779 (class 2606 OID 168454)
 -- Name: i005t_roles r004m_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -813,7 +836,7 @@ ALTER TABLE ONLY public.i005t_roles
 
 
 --
--- TOC entry 4708 (class 2606 OID 17110)
+-- TOC entry 4759 (class 2606 OID 168456)
 -- Name: d009t_personal unique_co_colegio_medicos; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -822,7 +845,7 @@ ALTER TABLE ONLY public.d009t_personal
 
 
 --
--- TOC entry 4710 (class 2606 OID 17112)
+-- TOC entry 4761 (class 2606 OID 168458)
 -- Name: d009t_personal unique_co_empleado; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -831,7 +854,7 @@ ALTER TABLE ONLY public.d009t_personal
 
 
 --
--- TOC entry 4712 (class 2606 OID 17114)
+-- TOC entry 4763 (class 2606 OID 168460)
 -- Name: d009t_personal unique_co_ministerio_sanidad; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -840,7 +863,7 @@ ALTER TABLE ONLY public.d009t_personal
 
 
 --
--- TOC entry 4718 (class 2606 OID 17116)
+-- TOC entry 4769 (class 2606 OID 168462)
 -- Name: d010t_especialidad_personal unique_co_personal_especialidad_personal; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -849,7 +872,7 @@ ALTER TABLE ONLY public.d010t_especialidad_personal
 
 
 --
--- TOC entry 4714 (class 2606 OID 17118)
+-- TOC entry 4765 (class 2606 OID 168464)
 -- Name: d009t_personal unique_co_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -858,7 +881,7 @@ ALTER TABLE ONLY public.d009t_personal
 
 
 --
--- TOC entry 4737 (class 2606 OID 17139)
+-- TOC entry 4788 (class 2606 OID 168465)
 -- Name: d010t_especialidad_personal fk_co_especialidad; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -867,7 +890,7 @@ ALTER TABLE ONLY public.d010t_especialidad_personal
 
 
 --
--- TOC entry 4738 (class 2606 OID 17179)
+-- TOC entry 4789 (class 2606 OID 168470)
 -- Name: d010t_especialidad_personal fk_co_personal; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -876,7 +899,7 @@ ALTER TABLE ONLY public.d010t_especialidad_personal
 
 
 --
--- TOC entry 4739 (class 2606 OID 17184)
+-- TOC entry 4790 (class 2606 OID 168475)
 -- Name: d011t_horarios_personal fk_co_personal; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -885,7 +908,7 @@ ALTER TABLE ONLY public.d011t_horarios_personal
 
 
 --
--- TOC entry 4735 (class 2606 OID 17189)
+-- TOC entry 4795 (class 2606 OID 168568)
 -- Name: d008t_usuarios fk_co_rol; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -894,16 +917,7 @@ ALTER TABLE ONLY public.d008t_usuarios
 
 
 --
--- TOC entry 4736 (class 2606 OID 17214)
--- Name: d009t_personal fk_co_usuario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.d009t_personal
-    ADD CONSTRAINT fk_co_usuario FOREIGN KEY (co_usuario) REFERENCES public.d008t_usuarios(co_usuario);
-
-
---
--- TOC entry 4743 (class 2606 OID 17224)
+-- TOC entry 4794 (class 2606 OID 168490)
 -- Name: i011t_items_menu fk_item_ruta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -912,7 +926,7 @@ ALTER TABLE ONLY public.i011t_items_menu
 
 
 --
--- TOC entry 4742 (class 2606 OID 17229)
+-- TOC entry 4793 (class 2606 OID 168495)
 -- Name: i010t_menus fk_menu_rol; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -921,7 +935,7 @@ ALTER TABLE ONLY public.i010t_menus
 
 
 --
--- TOC entry 4740 (class 2606 OID 17234)
+-- TOC entry 4791 (class 2606 OID 168500)
 -- Name: d013t_permisos fk_permisos_rol; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -930,7 +944,7 @@ ALTER TABLE ONLY public.d013t_permisos
 
 
 --
--- TOC entry 4741 (class 2606 OID 17239)
+-- TOC entry 4792 (class 2606 OID 168505)
 -- Name: d013t_permisos fk_permisos_rutas; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -939,7 +953,7 @@ ALTER TABLE ONLY public.d013t_permisos
 
 
 --
--- TOC entry 4915 (class 0 OID 0)
+-- TOC entry 4968 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -948,7 +962,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2024-05-10 03:20:13
+-- Completed on 2024-07-27 20:46:51
 
 --
 -- PostgreSQL database dump complete
