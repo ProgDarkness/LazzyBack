@@ -5,7 +5,7 @@
 -- Dumped from database version 16.0
 -- Dumped by pg_dump version 16.0
 
--- Started on 2024-07-27 20:46:48
+-- Started on 2024-07-27 23:27:15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -482,6 +482,7 @@ ALTER TABLE ONLY public.i011t_items_menu ALTER COLUMN id_item SET DEFAULT nextva
 --
 
 COPY public.d008t_usuarios (co_usuario, usuario, nu_clave, nb_usuario, ap_usuario, nb2_usuario, ap2_usuario, co_rol, tx_correo, created_at, updated_at) FROM stdin;
+2	gmarcano	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	\N	\N	\N	\N	1	gabrielmarcano141@gmail.com	2024-07-28 02:41:18.671961	\N
 \.
 
 
@@ -528,14 +529,7 @@ COPY public.d011t_horarios_personal (co_horario_personal, co_turno, co_personal,
 --
 
 COPY public.d013t_permisos (id_permiso, co_rol, id_ruta, tx_permisos) FROM stdin;
-1	1	3	{t,t,t,t}
-2	1	1	{t,t,t,t}
-3	1	2	{t,t,t,t}
 4	1	4	{t,t,t,t}
-5	1	6	{t,t,t,t}
-6	1	5	{t,t,t,t}
-7	1	7	{t,t,t,t}
-8	1	8	{t,t,t,t}
 \.
 
 
@@ -597,14 +591,7 @@ COPY public.i008t_parentescos (co_parentesco, nb_parentesco) FROM stdin;
 --
 
 COPY public.i009t_rutas (id_ruta, nb_ruta, tx_tag_name) FROM stdin;
-1	/recepcion/solicitudes	Recepción Solicitudes
-3	/recepcion/pacientes	Recepción Pacientes
 4	/gestion-usuarios	Gestión Usuarios
-5	/personal/horarios	Personal Horarios
-6	/personal/gestion	Personal Gestión
-7	/especialidades/gestion	Especialidades Gestión
-8	/especialidades/horarios	Especialidades Horarios
-2	/recepcion/crear-citas	Recepción Crear Citas
 \.
 
 
@@ -615,7 +602,7 @@ COPY public.i009t_rutas (id_ruta, nb_ruta, tx_tag_name) FROM stdin;
 --
 
 COPY public.i010t_menus (id_menu, co_rol, tx_menu) FROM stdin;
-1	1	[{"icon": "pi pi-fw pi-user", "label": "Pacientes", "command": "() => { router.push('/recepcion/pacientes') }"}, {"icon": "pi pi-fw pi-file", "label": "Solicitudes", "command": "() => { router.push('/recepcion/solicitudes')}"}, {"icon": "pi pi-fw pi-pencil", "label": "Crear Citas", "command": "() => { router.push('/recepcion/crear-citas')}"}, {"icon": "pi pi-fw pi-id-card", "label": "Gestion de Usuarios", "command": "() => { router.push('/gestion-usuarios')}"}, {"icon": "pi pi-fw pi-users", "label": "Gestion de Personal", "command": "() => { router.push('/personal/gestion')}"}, {"icon": "pi pi-fw pi-calendar-plus", "label": "Horarios de Personal", "command": "() => { router.push('/personal/horarios')}"}, {"icon": "pi pi-fw pi-book", "label": "Gestion de Especialidades", "command": "() => { router.push('/especialidades/gestion')}"}, {"icon": "pi pi-fw pi-calendar", "label": "Horarios de Especialidades", "command": "() => { router.push('/especialidades/horarios')}"}]
+1	1	[{"icon": "pi pi-fw pi-id-card", "label": "Gestion de Usuarios", "command": "() => { router.push('/gestion-usuarios')}"}]
 \.
 
 
@@ -626,14 +613,7 @@ COPY public.i010t_menus (id_menu, co_rol, tx_menu) FROM stdin;
 --
 
 COPY public.i011t_items_menu (id_item, id_ruta, json_item) FROM stdin;
-1	1	{"icon": "pi pi-fw pi-file", "label": "Solicitudes", "command": "() => { router.push('/recepcion/solicitudes')}"}
-2	2	{"icon": "pi pi-fw pi-pencil", "label": "Crear Citas", "command": "() => { router.push('/recepcion/crear-citas')}"}
-3	3	{"icon": "pi pi-fw pi-user", "label": "Pacientes", "command": "() => { router.push('/recepcion/pacientes') }"}
 4	4	{"icon": "pi pi-fw pi-id-card", "label": "Gestion de Usuarios", "command": "() => { router.push('/gestion-usuarios')}"}
-6	6	{"icon": "pi pi-fw pi-users", "label": "Gestion de Personal", "command": "() => { router.push('/personal/gestion')}"}
-5	5	{"icon": "pi pi-fw pi-calendar-plus", "label": "Horarios de Personal", "command": "() => { router.push('/personal/horarios')}"}
-7	7	{"icon": "pi pi-fw pi-book", "label": "Gestion de Especialidades", "command": "() => { router.push('/especialidades/gestion')}"}
-8	8	{"icon": "pi pi-fw pi-calendar", "label": "Horarios de Especialidades", "command": "() => { router.push('/especialidades/horarios')}"}
 \.
 
 
@@ -643,7 +623,7 @@ COPY public.i011t_items_menu (id_item, id_ruta, json_item) FROM stdin;
 -- Name: d008t_usuarios_co_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.d008t_usuarios_co_usuario_seq', 1, false);
+SELECT pg_catalog.setval('public.d008t_usuarios_co_usuario_seq', 2, true);
 
 
 --
@@ -962,7 +942,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2024-07-27 20:46:51
+-- Completed on 2024-07-27 23:27:17
 
 --
 -- PostgreSQL database dump complete
