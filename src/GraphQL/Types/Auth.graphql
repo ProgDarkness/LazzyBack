@@ -51,7 +51,7 @@ type ResultNewUser {
 type Mutation {
   renovarToken: String!
   newUser(cedula: Int!): ResultNewUser!
-  inserNewUser(cedula: Int!, correo: String!, clave: String!): Result!
+  inserNewUser(usuario: String!, correo: String!, clave: String!): Result!
 }
 
 input InputLogin {

@@ -195,7 +195,7 @@ export default {
         throw new ApolloError(e.message)
       }
     },
-    inserNewUser: async (_, { cedula, correo, clave }) => {
+    inserNewUser: async (_, { usuario, correo, clave }) => {
       try {
         const { SECRET_KEY } = process.env
         const claveDesencriptada = CryptoJS.AES.decrypt(
@@ -205,11 +205,11 @@ export default {
         const hashClave = CryptoJS.SHA256(claveDesencriptada).toString()
 
         if (hashClave !== null) {
-          await db1.oneOrNone(
-            `UPDATE public.d008t_usuarios
-                SET nu_clave=$3,  tx_correo=$2, status_register=false
-                  WHERE ced_usuario=$1;`,
-            [cedula, correo, hashClave]
+          await db1.none(
+            `INSERT INTO public.d008t_usuarios
+            (usuario, nu_clave, tx_correo)
+            VALUES($1, $3, $2);`,
+            [usuario, correo, hashClave]
           )
 
           return {
