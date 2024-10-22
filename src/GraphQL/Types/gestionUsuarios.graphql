@@ -33,11 +33,6 @@ type ResultCR {
   response: Int
 }
 
-type Result {
-  status: Int
-  message: String
-  type: String
-}
 
 """
  type CrearUsuario {

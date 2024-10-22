@@ -8,6 +8,27 @@ dotenv.config()
 
 export default {
   Query: {
+    prueba: async (_, __) => {
+      const usuarios = await db1.manyOrNone(
+        `SELECT co_usuario, usuario, nu_clave, tx_correo, co_rol
+        FROM public.d008t_usuarios;`
+      )
+
+      for (const usuario of usuarios) {
+        const roles = await db1.oneOrNone(
+          `SELECT co_rol, nb_rol FROM public.i005t_roles WHERE co_rol = $1`,
+          [usuario.co_rol]
+        )
+
+        usuario.rol = roles
+      }
+
+      return {
+        status: 200,
+        message: 'Hola Mundo',
+        type: 'success'
+      }
+    },
     login: async (_, { input }) => {
       const { SECRET_KEY } = process.env
       const { usuario: numCedula, clave } = input
